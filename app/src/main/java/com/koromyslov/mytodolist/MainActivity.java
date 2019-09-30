@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
         , DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private List<TaskUnit> taskList;
-    private int day, month, year, hour, minute;
     private int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
     private String taskTitle;
     private int taskId;
@@ -49,9 +49,13 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
     private ItemTouchHelper itemTouchHelper;
     private FloatingActionButton fab;
     private AlarmManager alarmManager;
+    protected TaskAddFragment.OnBackPressedListener onBackPressedListener;
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
-    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
 
         fragmentContainer = findViewById(R.id.fragment_container);
         rv = findViewById(R.id.recycler_view);
+        fab = findViewById(R.id.fab);
         itemTouchHelper = new
                 ItemTouchHelper(new SwipeToDeleteCallback((RVAdapter) rv.getAdapter()));
 
@@ -69,28 +74,48 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         itemTouchHelper.attachToRecyclerView(rv);
 
-
-        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
-                rv.setVisibility(View.INVISIBLE);
-                fab.setVisibility(View.INVISIBLE);
-                fragmentContainer.setVisibility(View.VISIBLE);
+
+                setVisibleFragment();
 
                 taskAddFragment = TaskAddFragment.newInstance();
-
                 FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
                 fragmentManager.add(R.id.fragment_container, taskAddFragment);
                 fragmentManager.addToBackStack(null);
                 fragmentManager.commit();
-
-
             }
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        if (onBackPressedListener != null) {
+            onBackPressedListener.doBack();
+            setVisibleActivity();
+
+        } else
+            super.onBackPressed();
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void setVisibleActivity() {
+        fragmentContainer.setVisibility(View.INVISIBLE);
+        rv.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void setVisibleFragment() {
+        rv.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.INVISIBLE);
+        fragmentContainer.setVisibility(View.VISIBLE);
+
+    }
+
 
     @Override
     protected void onStop() {
@@ -110,10 +135,7 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
         fragmentManager.remove(taskAddFragment);
         fragmentManager.commit();
 
-        rv.setVisibility(View.VISIBLE);
-        fab.setVisibility(View.VISIBLE);
-        rv.setAdapter(new RVAdapter(getApplicationContext(), taskList, this));
-        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        setVisibleActivity();
         rv.getAdapter().notifyDataSetChanged();
 
     }
@@ -128,9 +150,7 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
     @SuppressLint("RestrictedApi")
     @Override
     public void onEditBtnClick(TaskUnit taskUnit, int position) {
-        rv.setVisibility(View.INVISIBLE);
-        fab.setVisibility(View.INVISIBLE);
-        fragmentContainer.setVisibility(View.VISIBLE);
+        setVisibleFragment();
 
         taskAddFragment = TaskAddFragment.newInstance(taskUnit.getTitleTast(), taskUnit.getTextTask(), taskUnit.getPriorityType(), position);
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
@@ -146,15 +166,10 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
 
         taskTitle = taskUnit.getTitleTast();
         taskId = position;
-
         Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, MainActivity.this, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, MainActivity.this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
-
     }
 
     @Override
@@ -162,12 +177,9 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
         yearFinal = i;
         monthFinal = i1;
         dayFinal = i2;
-
         Calendar calendar = Calendar.getInstance();
-        hour = calendar.get(Calendar.HOUR);
-        minute = calendar.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, MainActivity.this, hour, minute, true);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, MainActivity.this, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
 
     }
@@ -181,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
 
     }
 
+    public void setOnBackPressedListener(TaskAddFragment.OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
+    }
 
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("Shared Preferences", MODE_PRIVATE);
@@ -217,9 +232,7 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, ID_NOTIFY, intent, 0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
     }
-
 
     public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
@@ -236,8 +249,6 @@ public class MainActivity extends AppCompatActivity implements TaskAddFragment.O
             int position = viewHolder.getAdapterPosition();
             taskList.remove(position);
             rv.getAdapter().notifyDataSetChanged();
-
-
         }
 
         @Override

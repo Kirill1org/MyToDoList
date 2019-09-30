@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/title_task"
             android:layout_width="0dp"
-            android:layout_height="29dp"
+            android:layout_height="32dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="3dp"
@@ -45,7 +45,6 @@
             android:maxLines="4"
             android:text="@string/description_task"
             android:textSize="@dimen/description_task"
-            app:layout_constraintBottom_toTopOf="@+id/date_text"
             app:layout_constraintEnd_toStartOf="@+id/indicator_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_task"
@@ -70,6 +69,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/check_box_text"
+            android:buttonTint="@color/colorAccent"
+
             app:layout_constraintBottom_toTopOf="@+id/description_task"
             app:layout_constraintEnd_toStartOf="@+id/indicator_view"
             app:layout_constraintTop_toTopOf="parent"
@@ -77,8 +78,8 @@
 
         <View
             android:id="@+id/editBtn"
-            android:layout_width="26dp"
-            android:layout_height="28dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
@@ -91,7 +92,6 @@
             app:layout_constraintEnd_toStartOf="@+id/checkBox"
             app:layout_constraintStart_toEndOf="@+id/title_task"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.404"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -104,6 +104,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/btn_date_text"
@@ -111,6 +112,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_task"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

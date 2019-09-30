@@ -68,18 +68,17 @@ public class TaskAddFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ((MainActivity)getActivity()).setOnBackPressedListener(new BaseBackPressedListener(getActivity()));
 
         View rootView = inflater.inflate(R.layout.task_add, container, false);
 
         editTitleTask = rootView.findViewById(R.id.editTextTitle);
         editDescriptionTask = rootView.findViewById(R.id.editTextDescription);
         createBtn = rootView.findViewById(R.id.button_create);
-
-
         redEllipse = rootView.findViewById(R.id.red_ellipse);
         yellowEllipse = rootView.findViewById(R.id.yellow_ellipse);
         greenEllipse = rootView.findViewById(R.id.green_ellipse);
@@ -192,5 +191,8 @@ public class TaskAddFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String titleTask, String descriptionTask, int indicatorPriorityTask, int index, boolean isCreated);
 
+    }
+    public interface OnBackPressedListener {
+        public void doBack();
     }
 }
