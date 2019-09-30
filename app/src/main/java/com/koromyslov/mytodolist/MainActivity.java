@@ -17,14 +17,12 @@ import com.koromyslov.mytodolist.Notification.AlertReceiver;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
