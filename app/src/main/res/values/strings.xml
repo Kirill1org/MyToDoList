@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyToDoList</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_priority">ПРИОРИТЕТ</string>
+    <string name="text_create">СОЗДАТЬ</string>
+    <string name="hint_edit_title">Введите заголовок</string>
+    <string name="hint_edit_description">Введите текст</string>
+    <string name="description_task">Привет, гоу гулять Привет, гоу гулять  Привет, гоу гулять Привет, гоу гулятьПривет, гоу гулять Привет, гоу гулять  Привет, гоу гулять Привет, гоу гулятьПривет, гоу гулять Привет, гоу гулять  Привет, гоу гулять Привет, гоу гулять</string>
+    <string name="check_box_text">Выполнено</string>
+    <string name="title_task">You should go for a walk</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_date_text">НАСТРОИТЬ УВЕДОМЛЕНИЕ</string>
+    <string name="text_btn_back">НАЗАД</string>
+</resources>
