@@ -1,13 +1,18 @@
-package com.koromyslov.mytodolist;
-
-import android.widget.TextView;
+package com.koromyslov.mytodolist.Model;
 
 public class TaskUnit {
 
-    private String titleTast;
+    private String titleTask;
     private String textTask;
     private int priorityType;
     private boolean isDone;
+
+    public TaskUnit(String titleTast, String textTask, int priorityType, boolean isDone) {
+        this.titleTask = titleTast;
+        this.textTask = textTask;
+        this.priorityType = priorityType;
+        this.isDone = isDone;
+    }
 
     public boolean isDone() {
         return isDone;
@@ -17,19 +22,12 @@ public class TaskUnit {
         isDone = done;
     }
 
-    public TaskUnit(String titleTast, String textTask, int priorityType, boolean isDone) {
-        this.titleTast = titleTast;
-        this.textTask = textTask;
-        this.priorityType = priorityType;
-        this.isDone=isDone;
+    public String getTitleTask() {
+        return titleTask;
     }
 
-    public String getTitleTast() {
-        return titleTast;
-    }
-
-    public void setTitleTast(String titleTast) {
-        this.titleTast = titleTast;
+    public void setTitleTask(String titleTask) {
+        this.titleTask = titleTask;
     }
 
     public String getTextTask() {

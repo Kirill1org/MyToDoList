@@ -1,4 +1,4 @@
-package com.koromyslov.mytodolist;
+package com.koromyslov.mytodolist.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.koromyslov.mytodolist.R;
+import com.koromyslov.mytodolist.Model.TaskUnit;
 
 import java.util.List;
 
@@ -73,8 +76,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
             descriptionTask = itemView.findViewById(R.id.description_task);
             checkTask = itemView.findViewById(R.id.checkBox);
             indicatorTask = itemView.findViewById(R.id.indicator_view);
-            editBtn = itemView.findViewById(R.id.editBtn);
-            dateBtn = itemView.findViewById(R.id.date_btn);
+            editBtn = itemView.findViewById(R.id.editBtnView);
+            dateBtn = itemView.findViewById(R.id.notify_btn);
 
             checkTask.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,7 +131,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
         @SuppressLint("ResourceAsColor")
         public void bind(TaskUnit taskUnit) {
 
-            titleTask.setText(taskUnit.getTitleTast());
+            titleTask.setText(taskUnit.getTitleTask());
             descriptionTask.setText(taskUnit.getTextTask());
             checkTask.setChecked(taskUnit.isDone());
 

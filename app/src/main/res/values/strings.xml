@@ -11,6 +11,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="btn_date_text">НАСТРОИТЬ УВЕДОМЛЕНИЕ</string>
+    <string name="btn_date_text">Notify</string>
     <string name="text_btn_back">НАЗАД</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

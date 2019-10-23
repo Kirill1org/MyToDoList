@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/task_shape"
-        android:orientation="vertical"
-        android:padding="@dimen/task_unit_padding">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_task"
@@ -23,43 +22,44 @@
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="3dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/title_task"
             android:textSize="@dimen/title_task_size"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/editBtn"
+            app:layout_constraintEnd_toStartOf="@+id/editBtnView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description_task"
             android:layout_width="0dp"
-            android:layout_height="78dp"
+            android:layout_height="64dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:ellipsize="end"
-            android:maxLines="4"
+            android:maxLines="3"
             android:text="@string/description_task"
             android:textSize="@dimen/description_task"
-            app:layout_constraintEnd_toStartOf="@+id/indicator_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_task"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/title_task" />
 
         <View
             android:id="@+id/indicator_view"
-            android:layout_width="7dp"
-            android:layout_height="158dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/indicator_shape"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/elipse"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/description_task"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/notify_btn"
+            app:layout_constraintTop_toBottomOf="@+id/description_task" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -68,25 +68,24 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/check_box_text"
-            android:buttonTint="@color/colorAccent"
 
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/check_box_text"
             app:layout_constraintBottom_toTopOf="@+id/description_task"
-            app:layout_constraintEnd_toStartOf="@+id/indicator_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.43" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editBtnView"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/editBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:id="@+id/editBtnView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/edit"
             app:layout_constraintBottom_toTopOf="@+id/description_task"
             app:layout_constraintEnd_toStartOf="@+id/checkBox"
@@ -95,22 +94,18 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/date_btn"
+            android:id="@+id/notify_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/btn_date_text"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description_task"
             tools:ignore="MissingConstraints" />
